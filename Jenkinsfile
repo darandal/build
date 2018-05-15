@@ -9,13 +9,13 @@ pipeline {
 		timeout(time: 1, unit: 'DAYS') //if there is input that is ignored for 1 day, it is aborted
 	}*/
 	
-	post {
+	/*post {
 		//success {}
 		//failure {}
 		//always {}
 		//unstable {}
 		//aborted {}
-	}
+	}*/
 	stages {
 		stage('Beginning') { agent any
 			environment {
@@ -39,6 +39,12 @@ pipeline {
 		}
 		
 		stage('Deploy to stage?') { agent none
+			when {
+				anyOf {
+					branch 'stage'
+					environment name: 'NODE_VER', value: '8.1.0'
+				}
+			}
 			steps {
 				input 'Deploy to stage?'
 			}
