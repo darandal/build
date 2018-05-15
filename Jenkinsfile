@@ -1,3 +1,5 @@
+@Library('shared-library') _ //underscore imports all scripts
+
 pipeline {
 	agent none
 	environment {
@@ -56,6 +58,7 @@ pipeline {
 				stage('Build 1') { agent any
 					steps {
 						echo "It's ME!"
+						hello() //called from shared library vars/hello.groovy
 					}
 				}
 				   
