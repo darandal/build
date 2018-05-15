@@ -10,9 +10,7 @@ pipeline {
 	}*/
 	
 	post {
-		success {
-			
-		}
+		//success {}
 		//failure {}
 		//always {}
 		//unstable {}
