@@ -3,6 +3,21 @@ pipeline {
 	environment {
 		NODE_VER = '8.1.0'
 	}
+	
+	/*options {
+		skipDefaultCheckout() //does not pull code everytime, you have to manually make a pull request
+		timeout(time: 1, unit: 'DAYS') //if there is input that is ignored for 1 day, it is aborted
+	}*/
+	
+	post {
+		success {
+			
+		}
+		//failure {}
+		//always {}
+		//unstable {}
+		//aborted {}
+	}
 	stages {
 		stage('Beginning') { agent any
 			environment {
@@ -28,6 +43,23 @@ pipeline {
 		stage('Deploy to stage?') { agent none
 			steps {
 				input 'Deploy to stage?'
+			}
+		}
+		
+		stage('Parallel') {
+			failFast true
+			parallel {
+				stage('Build 1') { agent any
+					steps {
+						echo "It's ME!"
+					}
+				}
+				   
+				stage('Build 2') { agent any
+					steps {
+						echo "Not It's ME!"
+					}
+				}
 			}
 		}
 	}
